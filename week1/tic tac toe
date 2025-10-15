@@ -1,0 +1,130 @@
+Got it, Anji 🌟
+Let’s explain this **Truth Table Entailment Algorithm** from your image **in the simplest way possible** — step by step, like a story 👇
+
+---
+
+## 🧩 What the Algorithm Does
+
+This algorithm checks if a **Knowledge Base (KB)** **logically entails** (guarantees) a **query (α)** —
+that is, if **α is true every time KB is true.**
+
+---
+
+## 💡 Step-by-Step Simple Explanation
+
+### 🧠 Function 1: `TT-ENTAILS?(KB, α)`
+
+**Meaning:**
+This is the *main function* that starts the process.
+
+**What it does:**
+
+1. It takes the **knowledge base (KB)** and the **query (α)** as input.
+2. It collects all **symbols** (like P, Q, R) used in KB and α.
+3. It calls another function `TT-CHECK-ALL` to check all truth combinations for those symbols.
+
+So basically it says:
+
+> “Let’s test all possible truth values for P, Q, and R to see if the KB always makes α true.”
+
+---
+
+### ⚙️ Function 2: `TT-CHECK-ALL(KB, α, symbols, model)`
+
+**Meaning:**
+This function checks *every possible truth combination* (like a truth table).
+
+---
+
+### Step 1️⃣ — Base Case
+
+```text
+if EMPTY?(symbols)
+```
+
+This means:
+
+> “If there are no more symbols left to assign truth values, check if the KB is true in this situation.”
+
+---
+
+### Step 2️⃣ — When KB is True
+
+```text
+if PL-TRUE?(KB, model)
+    then return PL-TRUE?(α, model)
+```
+
+If the KB is **true** in this row,
+→ check if the **query (α)** is also true.
+If yes → good (continue).
+If not → entailment fails.
+
+---
+
+### Step 3️⃣ — When KB is False
+
+```text
+else return true
+```
+
+If KB is **false**, that model doesn’t matter (because entailment only cares when KB is true).
+So it just says “true” and moves on.
+
+---
+
+### Step 4️⃣ — Recursive Step
+
+```text
+else do
+    P = FIRST(symbols)
+    rest = REST(symbols)
+```
+
+Here, it picks the **first symbol (P)** and then divides the rest of the symbols.
+
+Then it tries **both possibilities**:
+
+* One time assuming P = true
+* One time assuming P = false
+
+It keeps doing this until all possible combinations have been checked.
+
+---
+
+### Step 5️⃣ — Return Final Result
+
+```text
+return (TT-CHECK-ALL(... {P=true})) 
+    and (TT-CHECK-ALL(... {P=false}))
+```
+
+It combines both results.
+If **both cases** are true (meaning α was true in all cases where KB was true),
+then overall result = **True** (KB entails α).
+Otherwise = **False**.
+
+---
+
+## 🧾 Simple Summary
+
+| Step | What It Means                          | Example             |
+| ---- | -------------------------------------- | ------------------- |
+| 1    | Start with all symbols                 | P, Q, R             |
+| 2    | Assign truth values (make truth table) | Try every T/F combo |
+| 3    | If KB is true, check if α is true too  | If yes → continue   |
+| 4    | If α is false when KB is true          | Entailment fails    |
+| 5    | If α true in all KB-true cases         | KB entails α ✅      |
+
+---
+
+## 💬 In Plain English
+
+> The algorithm checks all possible truth combinations (like rows in a truth table).
+> If every time the **KB** is true, the **query (α)** is also true,
+> then we can say **the KB entails α**.
+> Otherwise, it doesn’t.
+
+---
+
+Would you like me to explain this **same algorithm using a small real-life example** (like Riya and the library one)? That will make it even easier to visualize.
